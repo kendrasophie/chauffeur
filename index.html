@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Estela's Exam Coach</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="theme-color" content="#0f1622">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bodoni+Moda:opsz,wght@6..96,500;6..96,700&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <div class="brand">
+      <span class="eyebrow">Estela Lara · Exam on Monday</span>
+      <h1>Hi, Estela</h1>
+    </div>
+    <div class="top-actions">
+      <button class="icon-btn" id="musicBtn" aria-label="Background music" title="Background music">♪</button>
+      <button class="icon-btn" id="settingsBtn" aria-label="Settings" title="Settings">⚙</button>
+    </div>
+  </header>
+
+  <div class="progress" aria-label="Progress">
+    <div class="bar"><span id="progFill"></span></div>
+    <span class="prog-txt" id="progTxt">0 / 0 known</span>
+  </div>
+
+  <!-- ===== STUDY ===== -->
+  <main id="view-study" class="view">
+    <div class="filters">
+      <select id="catSel" aria-label="Category"></select>
+      <button class="chip" id="onlyReview" aria-pressed="false">To review</button>
+      <button class="chip" id="shuffleBtn">Shuffle</button>
+    </div>
+
+    <article class="card" id="card">
+      <div class="visual">
+        <div class="emoji" id="cVis"></div>
+        <div class="key" id="cKey"></div>
+      </div>
+      <div class="card-body">
+        <div class="meta"><span class="cat" id="cCat"></span><span class="mine" id="cMine" hidden>your answer</span><span class="count" id="cCount"></span></div>
+        <h2 class="q" id="cQ"></h2>
+        <button class="play q-play" id="playQ">▶ Hear question</button>
+
+        <div class="answer" id="ansBox" hidden>
+          <p class="a" id="cA"></p>
+          <p class="tap-hint">Tap any phrase to hear it slowly.</p>
+          <p class="es" id="cEs" hidden></p>
+          <div class="row">
+            <button class="play" id="playA">▶ Hear answer</button>
+            <button class="play" id="repeatBtn">↻ Repeat after me</button>
+            <button class="ghost" id="esBtn">ES</button>
+          </div>
+        </div>
+        <button class="reveal" id="revealBtn">Show answer</button>
+      </div>
+    </article>
+
+    <div class="judge">
+      <button class="again" id="againBtn">↺ Again</button>
+      <button class="got" id="gotBtn">✓ I know it</button>
+    </div>
+    <div class="nav-row">
+      <button class="ghost" id="prevBtn">‹ Prev</button>
+      <button class="ghost" id="nextBtn">Next ›</button>
+    </div>
+  </main>
+
+  <!-- ===== EXAMINER ===== -->
+  <main id="view-exam" class="view" hidden>
+    <p class="lead">The examiner asks. You answer out loud. Then you hear the model answer. Works hands-free with music.</p>
+    <article class="card exam-card">
+      <div class="visual small"><div class="emoji" id="eVis">🎙️</div><div class="key" id="eKey">Ready</div></div>
+      <div class="card-body">
+        <div class="meta"><span class="cat" id="eCat">Examiner</span></div>
+        <h2 class="q" id="eQ">Press Start. Speak your answer before the model answer plays.</h2>
+        <div class="think" id="think" hidden><span id="thinkFill"></span></div>
+        <p class="think-lbl" id="thinkLbl" hidden>Your turn — answer out loud</p>
+        <p class="a" id="eA" hidden></p>
+      </div>
+    </article>
+    <div class="judge">
+      <button class="got" id="examStart">▶ Start</button>
+      <button class="ghost" id="examNext">Skip ›</button>
+    </div>
+    <label class="opt"><input type="checkbox" id="examRepeat" checked> After the answer, repeat it phrase by phrase</label>
+    <label class="opt"><input type="checkbox" id="examReview"> Only cards marked "to review"</label>
+  </main>
+
+  <!-- ===== QUIZ ===== -->
+  <main id="view-quiz" class="view" hidden>
+    <div class="quiz-head"><span id="qzCount"></span><span id="qzScore"></span></div>
+    <article class="card">
+      <div class="card-body">
+        <h2 class="q" id="qzQ"></h2>
+        <button class="play q-play" id="qzPlay">▶ Hear question</button>
+        <div class="opts" id="qzOpts"></div>
+        <p class="why" id="qzWhy" hidden></p>
+      </div>
+    </article>
+    <div class="nav-row">
+      <button class="ghost" id="qzRestart">Restart</button>
+      <button class="got" id="qzNext" disabled>Next ›</button>
+    </div>
+  </main>
+
+  <!-- ===== LIST ===== -->
+  <main id="view-list" class="view" hidden>
+    <input type="search" id="search" placeholder="Search: flight, tip, smoke…" aria-label="Search">
+    <div id="list"></div>
+  </main>
+
+  <nav class="tabs" aria-label="Sections">
+    <button data-view="study" class="on"><b>Cards</b><small>Study</small></button>
+    <button data-view="exam"><b>Examiner</b><small>Oral</small></button>
+    <button data-view="quiz"><b>Quiz</b><small>Choice</small></button>
+    <button data-view="list"><b>All</b><small>List</small></button>
+  </nav>
+</div>
+
+<!-- Music sheet -->
+<div class="sheet" id="musicSheet" hidden>
+  <div class="sheet-in">
+    <h3>Background music</h3>
+    <p class="hint" id="musicHint"></p>
+    <div class="row">
+      <button class="got" id="musicPlay">▶ Play</button>
+      <button class="ghost" id="musicNext">Next track</button>
+    </div>
+    <label class="slider">Volume <input type="range" id="musicVol" min="0" max="1" step="0.05" value="0.35"></label>
+    <label class="opt"><input type="checkbox" id="duck" checked> Lower music while the voice speaks</label>
+    <button class="ghost close" data-close>Close</button>
+  </div>
+</div>
+
+<!-- Settings sheet -->
+<div class="sheet" id="settingsSheet" hidden>
+  <div class="sheet-in">
+    <h3>Voice &amp; study</h3>
+    <label class="opt"><input type="checkbox" id="natural" checked> Natural voice recordings (recommended)</label>
+    <label class="slider">Natural voice speed <span id="speedVal">1.00×</span><input type="range" id="speed" min="0.7" max="1.15" step="0.05" value="1"></label>
+    <button class="play" id="speedTest">▶ Test speed</button>
+    <p class="hint">Backup device voice, used only if a recording is missing:</p>
+    <label class="field">Device voice <select id="voiceSel"></select></label>
+    <label class="slider">Device voice speed <span id="rateVal">0.85</span><input type="range" id="rate" min="0.6" max="1.2" step="0.05" value="0.85"></label>
+    <label class="slider">Thinking time (Examiner) <span id="thinkVal">8 s</span><input type="range" id="thinkSec" min="3" max="20" step="1" value="8"></label>
+    <label class="opt"><input type="checkbox" id="autoSpeak"> Read the answer automatically when shown</label>
+    <label class="opt"><input type="checkbox" id="showEs"> Always show the Spanish hint</label>
+    <button class="ghost danger" id="resetBtn">Reset progress</button>
+    <p class="hint" id="resetMsg" hidden>Progress reset.</p>
+    <button class="ghost close" data-close>Close</button>
+  </div>
+</div>
+
+<audio id="bgm" preload="none"></audio>
+
+<script src="data.js"></script>
+<script src="music/tracks.js"></script>
+<script src="audio/manifest.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
