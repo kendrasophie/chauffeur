@@ -1,12 +1,11 @@
 # Estela's Exam Coach
 
-Study app for the chauffeur exam. All files go in the main folder of the repository (no subfolders).
+All files go in the main folder of the repository (no subfolders).
+GitHub's web upload rejects big batches, so upload in rounds (Add file → Upload files → Commit):
 
-| File | What it is |
-|---|---|
-| index.html, style.css, app.js | The app |
-| data.js | Questions and answers |
-| manifest.js, voices-1.js, voices-2.js | Natural voice recordings |
-| tracks.js, music-1..4.m4a | Background concentration music |
-
-Upload: repository → Add file → Upload files → drag all files → Commit changes.
+1. index.html, style.css, app.js, data.js, translations.js, manifest.js, tracks.js, README.md, voices-1.js
+2. voices-2.js, voices-3.js, voices-4.js
+3. music-1.m4a
+4. music-2.m4a
+5. music-3.m4a
+6. music-4.m4a

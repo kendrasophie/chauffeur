@@ -228,6 +228,12 @@ window.AUDIO = {
 "How do you prepare yourself before work?": {
 "f": "q-beea08d499"
 },
+"What are the Tiers?": {
+"f": "q-b8778d9cdb"
+},
+"Give me examples of Tier 1 service improvements.": {
+"f": "q-45e60cdc0b"
+},
 "What do you do if you will be late?": {
 "f": "q-05293da8ca"
 },
@@ -314,6 +320,9 @@ window.AUDIO = {
 },
 "Recommended temperature in the car?": {
 "f": "q-51392f5b32"
+},
+"Which of these is a Tier 1 service improvement?": {
+"f": "q-f01b99fa36"
 },
 "Being more than 5 minutes late is…": {
 "f": "q-c003ecba2d"
@@ -1466,8 +1475,8 @@ window.AUDIO = {
 }
 ]
 },
-"No, never. I keep guest information private. Sharing it is a Tier 1 issue.": {
-"f": "a-ece4c98d38",
+"No, never. I keep guest information private. I don't say who I drove or what they did. Sharing private information is a Tier 1 service improvement. Tier 1 is the most serious level, and it can end the partnership.": {
+"f": "a-cb8736d6eb",
 "p": [
 {
 "t": "No, never.",
@@ -1478,46 +1487,90 @@ window.AUDIO = {
 "f": "p-f1eb88834a"
 },
 {
-"t": "Sharing it is a Tier 1 issue.",
-"f": "p-90d40fecf7"
+"t": "I don't say who I drove or what they did.",
+"f": "p-e87a79c711"
+},
+{
+"t": "Sharing private information is a Tier 1 service improvement.",
+"f": "p-19d6d1ba1a"
+},
+{
+"t": "Tier 1 is the most serious level,",
+"f": "p-7375d78911"
+},
+{
+"t": "and it can end the partnership.",
+"f": "p-fb6607cd1b"
 }
 ]
 },
-"No. I can't advertise my own business to Blacklane guests. This is solicitation, a Tier 1 issue.": {
-"f": "a-f2156ad4ef",
+"No. I can't advertise my own business to Blacklane guests, and no business cards or branding can be visible in the car. This is called solicitation. It is a Tier 1 service improvement, the most serious level, and it can lead to a fine or the end of the partnership.": {
+"f": "a-697cf98b3a",
 "p": [
 {
 "t": "No.",
 "f": "p-fbd39fe0ec"
 },
 {
-"t": "I can't advertise my own business to Blacklane guests.",
-"f": "p-1cb68d1fbc"
+"t": "I can't advertise my own business to Blacklane guests,",
+"f": "p-81dcfa53b9"
 },
 {
-"t": "This is solicitation,",
-"f": "p-cd6128e058"
+"t": "and no business cards or branding can be visible in the car.",
+"f": "p-beb7ab9b39"
 },
 {
-"t": "a Tier 1 issue.",
-"f": "p-3144ad9f74"
+"t": "This is called solicitation.",
+"f": "p-92a6f3e140"
+},
+{
+"t": "It is a Tier 1 service improvement,",
+"f": "p-cad39ed5e0"
+},
+{
+"t": "the most serious level,",
+"f": "p-8b63dc73a1"
+},
+{
+"t": "and it can lead to a fine or the end of the partnership.",
+"f": "p-8b8b68bb33"
 }
 ]
 },
-"Tolls, parking and tips are already included in the price. I never ask for or take cash. Asking for payment is Tier 1.": {
-"f": "a-8afe33a34c",
+"Tolls, parking and tips are already included in the price, and everything is paid digitally. I never ask for or take cash. If the guest offers a tip, I say thank you, it is already included. Asking the guest for payment is a Tier 1 service improvement, and it is treated very seriously.": {
+"f": "a-c38f6eebe8",
 "p": [
 {
-"t": "Tolls, parking and tips are already included in the price.",
-"f": "p-3d23eb157a"
+"t": "Tolls, parking and tips are already included in the price,",
+"f": "p-49fcf050cd"
+},
+{
+"t": "and everything is paid digitally.",
+"f": "p-5b0a16cc3e"
 },
 {
 "t": "I never ask for or take cash.",
 "f": "p-0410c60b5c"
 },
 {
-"t": "Asking for payment is Tier 1.",
-"f": "p-fa51f92cbe"
+"t": "If the guest offers a tip,",
+"f": "p-0b545e1727"
+},
+{
+"t": "I say thank you,",
+"f": "p-2cf6f4bcce"
+},
+{
+"t": "it is already included.",
+"f": "p-c166868c7b"
+},
+{
+"t": "Asking the guest for payment is a Tier 1 service improvement,",
+"f": "p-63f51aceb7"
+},
+{
+"t": "and it is treated very seriously.",
+"f": "p-6ee2b9d3a2"
 }
 ]
 },
@@ -1757,20 +1810,102 @@ window.AUDIO = {
 }
 ]
 },
-"I contact Partner Care as soon as possible. Less than 5 minutes late is Tier 3. More than 5 minutes is Tier 2.": {
-"f": "a-b46156ce3b",
+"When a chauffeur does not follow a Blacklane standard, it is called a service improvement. There are three levels. Tier 1 is the most serious, Tier 2 is in the middle, and Tier 3 is the least serious.": {
+"f": "a-a222da4da4",
 "p": [
 {
-"t": "I contact Partner Care as soon as possible.",
-"f": "p-afaf92ab40"
+"t": "When a chauffeur does not follow a Blacklane standard,",
+"f": "p-ee7c1bc3e6"
 },
 {
-"t": "Less than 5 minutes late is Tier 3.",
-"f": "p-368855d988"
+"t": "it is called a service improvement.",
+"f": "p-c1dc24dc5b"
 },
 {
-"t": "More than 5 minutes is Tier 2.",
-"f": "p-3dcd6c2f7f"
+"t": "There are three levels.",
+"f": "p-d520f49d66"
+},
+{
+"t": "Tier 1 is the most serious,",
+"f": "p-facab70af5"
+},
+{
+"t": "Tier 2 is in the middle,",
+"f": "p-7763444752"
+},
+{
+"t": "and Tier 3 is the least serious.",
+"f": "p-038a2a5461"
+}
+]
+},
+"Tier 1 is the most serious level. For example: subcontracting the ride to another driver, offering my own business to the guest, sharing private guest information, or asking the guest for cash. It can lead to a fine or the end of the partnership.": {
+"f": "a-b4ee5d80ae",
+"p": [
+{
+"t": "Tier 1 is the most serious level.",
+"f": "p-54dba10c4e"
+},
+{
+"t": "For example: subcontracting the ride to another driver,",
+"f": "p-0911aa04ab"
+},
+{
+"t": "offering my own business to the guest,",
+"f": "p-10dc07bc99"
+},
+{
+"t": "sharing private guest information,",
+"f": "p-4e40a21bb3"
+},
+{
+"t": "or asking the guest for cash.",
+"f": "p-00394d9d9f"
+},
+{
+"t": "It can lead to a fine or the end of the partnership.",
+"f": "p-f965c3f255"
+}
+]
+},
+"I contact Partner Care as soon as possible, before the pickup time. If I am less than 5 minutes late, it is a Tier 3 service improvement, the lowest level. If I am more than 5 minutes late, it is Tier 2, a more serious level. That's why I always try to arrive 10 minutes early.": {
+"f": "a-727458f55b",
+"p": [
+{
+"t": "I contact Partner Care as soon as possible,",
+"f": "p-a371c8664c"
+},
+{
+"t": "before the pickup time.",
+"f": "p-e46af30556"
+},
+{
+"t": "If I am less than 5 minutes late,",
+"f": "p-042cee1b33"
+},
+{
+"t": "it is a Tier 3 service improvement,",
+"f": "p-37fe3718dc"
+},
+{
+"t": "the lowest level.",
+"f": "p-be6a65e689"
+},
+{
+"t": "If I am more than 5 minutes late,",
+"f": "p-dd6e86ef19"
+},
+{
+"t": "it is Tier 2,",
+"f": "p-c4f042602d"
+},
+{
+"t": "a more serious level.",
+"f": "p-cf3aaf63f1"
+},
+{
+"t": "That's why I always try to arrive 10 minutes early.",
+"f": "p-46c442e654"
 }
 ]
 },
@@ -1812,20 +1947,32 @@ window.AUDIO = {
 }
 ]
 },
-"No. Only the chauffeur and vehicle in the booking. Subcontracting is Tier 1 and can end the partnership.": {
-"f": "a-63b97f191c",
+"No. Only the chauffeur and the vehicle listed in the booking can do the ride. Unregistered drivers or companies can never do Blacklane rides. This is subcontracting, a Tier 1 service improvement. It can lead to a fine and the end of the partnership.": {
+"f": "a-b3e5f26923",
 "p": [
 {
 "t": "No.",
 "f": "p-fbd39fe0ec"
 },
 {
-"t": "Only the chauffeur and vehicle in the booking.",
-"f": "p-13fefe0bfe"
+"t": "Only the chauffeur and the vehicle listed in the booking can do the ride.",
+"f": "p-3ac3d369f6"
 },
 {
-"t": "Subcontracting is Tier 1 and can end the partnership.",
-"f": "p-e77a2e56ca"
+"t": "Unregistered drivers or companies can never do Blacklane rides.",
+"f": "p-bbd5c1c98c"
+},
+{
+"t": "This is subcontracting,",
+"f": "p-6d7f8a0248"
+},
+{
+"t": "a Tier 1 service improvement.",
+"f": "p-1e39038db4"
+},
+{
+"t": "It can lead to a fine and the end of the partnership.",
+"f": "p-f55e382ee4"
 }
 ]
 },

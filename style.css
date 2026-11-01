@@ -127,6 +127,21 @@ h1::after { content: ""; display: block; width: 38px; height: 2px; background: v
 .ph.turn { background: color-mix(in srgb, var(--good) 28%, transparent); outline: 1px dashed var(--good); }
 .tap-hint { margin: -4px 0 0; font-size: 13px; color: var(--muted); }
 .sheet-in { max-height: 92vh; overflow-y: auto; }
+.tbtn {
+  min-width: 46px; min-height: 46px; padding: 0 12px; border-radius: 12px;
+  border: 1px solid var(--line); background: var(--surface-2);
+  font-family: var(--font-display); font-weight: 700; font-size: 20px;
+}
+.tbtn.wide { font-family: var(--font-body); font-size: 15px; align-self: flex-start; }
+.tbtn[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.tr {
+  margin: 0; padding: 8px 12px; border-left: 3px solid var(--muted);
+  background: var(--surface-2); border-radius: 0 8px 8px 0;
+  color: var(--fg); font-size: 16px; line-height: 1.45; font-style: italic;
+}
+.tr::before { content: "ES  "; font-style: normal; font-weight: 700; font-size: 11px; letter-spacing: .1em; color: var(--muted); }
+.opts small { display: block; margin-top: 3px; font-size: 14px; color: var(--muted); font-style: italic; }
+.item .itr { grid-column: 2; font-size: 14px; }
 .es { margin: 0; color: var(--muted); font-size: 15px; font-style: italic; }
 .row { display: flex; gap: 8px; flex-wrap: wrap; }
 
@@ -217,3 +232,5 @@ h1::after { content: ""; display: block; width: 38px; height: 2px; background: v
 .close { margin-top: 4px; }
 
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+.item .row { grid-column: 2; }
+.item .tbtn { min-height: 36px; min-width: 40px; font-size: 17px; }

@@ -46,16 +46,20 @@
       <div class="card-body">
         <div class="meta"><span class="cat" id="cCat"></span><span class="mine" id="cMine" hidden>your answer</span><span class="count" id="cCount"></span></div>
         <h2 class="q" id="cQ"></h2>
-        <button class="play q-play" id="playQ">▶ Hear question</button>
+        <p class="tr" id="cQes" hidden></p>
+        <div class="row">
+          <button class="play" id="playQ">▶ Hear question</button>
+          <button class="tbtn" id="trQ" aria-pressed="false" aria-label="Traducir pregunta al español" title="Traducir">T</button>
+        </div>
 
         <div class="answer" id="ansBox" hidden>
           <p class="a" id="cA"></p>
           <p class="tap-hint">Tap any phrase to hear it slowly.</p>
-          <p class="es" id="cEs" hidden></p>
+          <p class="tr" id="cAes" hidden></p>
           <div class="row">
             <button class="play" id="playA">▶ Hear answer</button>
             <button class="play" id="repeatBtn">↻ Repeat after me</button>
-            <button class="ghost" id="esBtn">ES</button>
+            <button class="tbtn" id="trA" aria-pressed="false" aria-label="Traducir respuesta al español" title="Traducir">T</button>
           </div>
         </div>
         <button class="reveal" id="revealBtn">Show answer</button>
@@ -80,9 +84,12 @@
       <div class="card-body">
         <div class="meta"><span class="cat" id="eCat">Examiner</span></div>
         <h2 class="q" id="eQ">Press Start. Speak your answer before the model answer plays.</h2>
+        <p class="tr" id="eQes" hidden></p>
         <div class="think" id="think" hidden><span id="thinkFill"></span></div>
         <p class="think-lbl" id="thinkLbl" hidden>Your turn — answer out loud</p>
         <p class="a" id="eA" hidden></p>
+        <p class="tr" id="eAes" hidden></p>
+        <button class="tbtn wide" id="trE" aria-pressed="false">T · Ver en español</button>
       </div>
     </article>
     <div class="judge">
@@ -99,9 +106,14 @@
     <article class="card">
       <div class="card-body">
         <h2 class="q" id="qzQ"></h2>
-        <button class="play q-play" id="qzPlay">▶ Hear question</button>
+        <p class="tr" id="qzQes" hidden></p>
+        <div class="row">
+          <button class="play" id="qzPlay">▶ Hear question</button>
+          <button class="tbtn" id="trQz" aria-pressed="false" aria-label="Traducir al español" title="Traducir">T</button>
+        </div>
         <div class="opts" id="qzOpts"></div>
         <p class="why" id="qzWhy" hidden></p>
+        <p class="tr" id="qzWhyEs" hidden></p>
       </div>
     </article>
     <div class="nav-row">
@@ -151,7 +163,7 @@
     <label class="slider">Device voice speed <span id="rateVal">0.85</span><input type="range" id="rate" min="0.6" max="1.2" step="0.05" value="0.85"></label>
     <label class="slider">Thinking time (Examiner) <span id="thinkVal">8 s</span><input type="range" id="thinkSec" min="3" max="20" step="1" value="8"></label>
     <label class="opt"><input type="checkbox" id="autoSpeak"> Read the answer automatically when shown</label>
-    <label class="opt"><input type="checkbox" id="showEs"> Always show the Spanish hint</label>
+    <label class="opt"><input type="checkbox" id="showEs"> Always show the Spanish translation (T)</label>
     <button class="ghost danger" id="resetBtn">Reset progress</button>
     <p class="hint" id="resetMsg" hidden>Progress reset.</p>
     <button class="ghost close" data-close>Close</button>
@@ -161,10 +173,13 @@
 <audio id="bgm" preload="none"></audio>
 
 <script src="data.js"></script>
+<script src="translations.js"></script>
 <script src="tracks.js"></script>
 <script src="manifest.js"></script>
 <script src="voices-1.js"></script>
 <script src="voices-2.js"></script>
+<script src="voices-3.js"></script>
+<script src="voices-4.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

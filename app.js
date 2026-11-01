@@ -3,6 +3,7 @@
   const $ = (id) => document.getElementById(id);
   const CARDS = (window.CARDS || []).map((c, i) => ({ ...c, id: c.id || "c" + i }));
   const QUIZ = window.QUIZ || [];
+  const ESC = window.ES_CARDS || {}, ESQ = window.ES_QUIZ || {};
   const TRACKS = window.MUSIC_TRACKS || [];
 
   /* ---------- storage (safe) ---------- */
@@ -279,8 +280,11 @@
     $("cCount").textContent = `${pos + 1} / ${deck.length}${known.has(c.id) ? " · ✓" : ""}`;
     $("cQ").textContent = c.q;
     renderPhrases($("cA"), c.a);
-    $("cEs").textContent = c.es || "";
-    $("cEs").hidden = !settings.showEs;
+    const t = ESC[c.q] || {};
+    $("cQes").textContent = t.q || "(sin traducción)";
+    $("cAes").textContent = t.a || c.es || "(sin traducción)";
+    setTr("cQes", "trQ", settings.showEs);
+    setTr("cAes", "trA", settings.showEs);
     store.set("pos", { id: c.id });
   }
   function reveal() {
@@ -295,7 +299,10 @@
   $("playQ").onclick = () => deck[pos] && speak(deck[pos].q, $("playQ"));
   $("playA").onclick = () => deck[pos] && speak(deck[pos].a, $("playA"));
   $("repeatBtn").onclick = (e) => repeatAfterMe($("cA"), e.currentTarget);
-  $("esBtn").onclick = () => ($("cEs").hidden = !$("cEs").hidden);
+  function setTr(boxId, btnId, on) { $(boxId).hidden = !on; $(btnId).setAttribute("aria-pressed", on); }
+  const toggleTr = (boxId, btnId) => setTr(boxId, btnId, $(boxId).hidden);
+  $("trQ").onclick = () => toggleTr("cQes", "trQ");
+  $("trA").onclick = () => toggleTr("cAes", "trA");
   $("nextBtn").onclick = () => step(1);
   $("prevBtn").onclick = () => step(-1);
   $("gotBtn").onclick = () => {
@@ -337,6 +344,7 @@
       const c = examCard;
       $("eVis").textContent = "🎙️"; $("eKey").textContent = "Listen";
       $("eCat").textContent = c.cat; $("eQ").textContent = c.q; $("eA").hidden = true;
+      { const t = ESC[c.q] || {}; $("eQes").textContent = t.q || ""; $("eAes").textContent = t.a || ""; $("eAes").hidden = true; $("eQes").hidden = !examTr; }
       $("think").hidden = true; $("thinkLbl").hidden = true;
       if (!(await speak(c.q)) || !examOn || examCard !== c) return;
       // thinking time
@@ -350,7 +358,7 @@
       if (!examOn || examCard !== c) return;
       $("think").hidden = true; $("thinkLbl").hidden = true;
       $("eVis").textContent = c.vis; $("eKey").textContent = c.key;
-      renderPhrases($("eA"), c.a); $("eA").hidden = false;
+      renderPhrases($("eA"), c.a); $("eA").hidden = false; $("eAes").hidden = !examTr;
       if (!(await speak(c.a)) || !examOn || examCard !== c) return;
       if ($("examRepeat").checked) {
         await sleep(800);
@@ -372,16 +380,23 @@
     $("examStart").textContent = "▶ Start";
     if (wake) { wake.release().catch(() => {}); wake = null; }
   }
+  let examTr = false;
+  $("trE").onclick = () => {
+    examTr = !examTr; $("trE").setAttribute("aria-pressed", examTr);
+    if ($("eQes").textContent) $("eQes").hidden = !examTr;
+    if (!$("eA").hidden) $("eAes").hidden = !examTr;
+  };
   $("examStart").onclick = () => (examOn ? stopExam() : startExam());
   $("examNext").onclick = () => { stopExam(); startExam(); };
   $("examReview").onchange = () => { examPool = []; };
 
   /* ---------- quiz ---------- */
-  let qOrder = [], qi = 0, score = 0, answered = false;
+  let qOrder = [], qi = 0, score = 0, answered = false, quizTr = false;
   function startQuiz() { qOrder = shuffle(QUIZ.map((_, i) => i)); qi = 0; score = 0; renderQuiz(); }
   function renderQuiz() {
     stopSpeak(); answered = false;
-    $("qzNext").disabled = true; $("qzWhy").hidden = true;
+    $("qzNext").disabled = true; $("qzWhy").hidden = true; $("qzWhyEs").hidden = true;
+    $("qzQes").hidden = !quizTr; $("trQz").setAttribute("aria-pressed", quizTr);
     $("qzScore").textContent = `Score ${score}`;
     if (qi >= qOrder.length) {
       $("qzCount").textContent = "Finished";
@@ -392,10 +407,14 @@
     const item = QUIZ[qOrder[qi]];
     $("qzCount").textContent = `Question ${qi + 1} / ${qOrder.length}`;
     $("qzQ").textContent = item.q;
+    const tq = ESQ[item.q] || {};
+    $("qzQes").textContent = tq.q || "(sin traducción)";
+    $("qzWhyEs").textContent = tq.why || "";
     const box = $("qzOpts"); box.innerHTML = "";
     item.o.forEach((txt, i) => {
       const b = document.createElement("button");
       b.textContent = txt;
+      if (tq.o && tq.o[i]) { const sm = document.createElement("small"); sm.textContent = tq.o[i]; sm.hidden = !quizTr; b.appendChild(sm); }
       b.onclick = () => {
         if (answered) return; answered = true;
         const right = i === item.a;
@@ -403,12 +422,19 @@
         [...box.children].forEach((el, j) => { if (j === item.a) el.classList.add("ok"); else if (j === i) el.classList.add("bad"); });
         $("qzWhy").textContent = (right ? "Correct. " : "Not quite. ") + item.why;
         $("qzWhy").hidden = false; $("qzNext").disabled = false;
+        $("qzWhyEs").hidden = !quizTr || !$("qzWhyEs").textContent;
         $("qzScore").textContent = `Score ${score}`;
       };
       box.appendChild(b);
     });
   }
   $("qzPlay").onclick = () => { const it = QUIZ[qOrder[qi]]; if (it) speak(natural(it.q) ? it.q : it.q + " " + it.o.join(". "), $("qzPlay")); };
+  $("trQz").onclick = () => {
+    quizTr = !quizTr; $("trQz").setAttribute("aria-pressed", quizTr);
+    $("qzQes").hidden = !quizTr;
+    $("qzOpts").querySelectorAll("small").forEach((x) => (x.hidden = !quizTr));
+    if (answered) $("qzWhyEs").hidden = !quizTr || !$("qzWhyEs").textContent;
+  };
   $("qzNext").onclick = () => { qi++; renderQuiz(); };
   $("qzRestart").onclick = startQuiz;
 
@@ -418,7 +444,7 @@
     const term = $("search").value.trim().toLowerCase();
     const out = [];
     cats.forEach((cat) => {
-      const items = CARDS.filter((c) => c.cat === cat && (!term || (c.q + c.a + c.es + c.key).toLowerCase().includes(term)));
+      const items = CARDS.filter((c) => c.cat === cat && (!term || (c.q + c.a + c.es + c.key + JSON.stringify(ESC[c.q] || "")).toLowerCase().includes(term)));
       if (!items.length) return;
       out.push(`<section class="group"><h3>${esc(cat)}</h3>` + items.map((c) => `
         <div class="item${known.has(c.id) ? " known" : ""}">
@@ -426,13 +452,16 @@
           <div class="iq">${esc(c.q)}</div>
           <div class="ia">${esc(c.a)}</div>
           <div class="ik">${esc(c.key)}</div>
-          <button class="play" data-say="${c.id}">▶ Listen</button>
+          <p class="tr itr" hidden>${esc((ESC[c.q] || {}).q || "")} — ${esc((ESC[c.q] || {}).a || "")}</p>
+          <div class="row"><button class="play" data-say="${c.id}">▶ Listen</button><button class="tbtn" data-tr aria-pressed="false" title="Traducir">T</button></div>
         </div>`).join("") + "</section>");
     });
     $("list").innerHTML = out.join("") || `<p class="hint">No results for “${esc(term)}”.</p>`;
   }
   $("search").oninput = renderList;
   $("list").addEventListener("click", (e) => {
+    const tb = e.target.closest("[data-tr]");
+    if (tb) { const box = tb.closest(".item").querySelector(".itr"); box.hidden = !box.hidden; tb.setAttribute("aria-pressed", !box.hidden); return; }
     const b = e.target.closest("[data-say]"); if (!b) return;
     const c = CARDS.find((x) => x.id === b.dataset.say);
     if (c) speak(c.q, b).then((ok) => { if (ok) speak(c.a, b); });
