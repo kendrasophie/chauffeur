@@ -63,7 +63,8 @@
       const done = (ok) => { if (curDone !== done) return; curDone = null; voiceEl.onended = voiceEl.onerror = null; resolve(ok); };
       curDone = done;
       voiceEl.defaultPlaybackRate = rate;
-      voiceEl.src = "audio/" + f + ".mp3";
+      const VD = window.VOICE_DATA || {};
+      voiceEl.src = VD[f] || ("audio/" + f + ".mp3");
       voiceEl.playbackRate = rate;
       voiceEl.preservesPitch = true; voiceEl.webkitPreservesPitch = true; voiceEl.mozPreservesPitch = true;
       voiceEl.onended = () => done(true);
